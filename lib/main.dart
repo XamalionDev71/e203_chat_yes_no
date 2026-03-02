@@ -1,3 +1,5 @@
+import 'package:e203_chat_yes_no/config/theme/app_theme.dart';
+import 'package:e203_chat_yes_no/presentation/screens/chat/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,15 +14,8 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Si-No App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter'),
-        ),
-        body: FilledButton(
-            onPressed: (){}, 
-            child: Text('Click Me')
-        ),
-      ),
+      theme: AppTheme(selectedColor: 1).theme(),
+      home: ChatScreen()
     );
   }
 }
