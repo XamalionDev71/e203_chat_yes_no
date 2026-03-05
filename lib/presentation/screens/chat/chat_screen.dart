@@ -1,3 +1,6 @@
+import 'package:e203_chat_yes_no/presentation/widgets/chat/mis_mensajes_burbujas.dart';
+import 'package:e203_chat_yes_no/presentation/widgets/chat/respuestas_burbujas.dart';
+import 'package:e203_chat_yes_no/presentation/widgets/shared/campo_mensaje.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -35,12 +38,15 @@ class _ChatView extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 itemCount: 100,
-                itemBuilder: (context,index){
-                  return Text('Indice: $index');
-                }
+                itemBuilder: (context, index) {
+                  return (index % 2 == 0)
+                      ? RespuestasBurbujas()
+                      : MisMensajesBurbujas();
+                },
               ),
             ),
-            Text('#TeamSistemas'),
+            //Text('#TeamSistemas'),
+            CampoMensaje(),
           ],
         ),
       ),
