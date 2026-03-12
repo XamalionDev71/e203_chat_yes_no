@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CampoMensaje extends StatelessWidget {
-  const CampoMensaje({super.key});
+  final ValueChanged<String> onValue;
+
+  const CampoMensaje({super.key, required this.onValue});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,8 @@ class CampoMensaje extends StatelessWidget {
       suffixIcon: IconButton(
         onPressed: () {
           final textValue = textController.value.text;
-          print('boton: $textValue');
           textController.clear();
+          onValue(textValue);
         },
         icon: Icon(Icons.send_outlined),
       ),
@@ -36,11 +38,10 @@ class CampoMensaje extends StatelessWidget {
       controller: textController,
       decoration: inputDecoration,
       onFieldSubmitted: (valor) {
-        print('Valor enviado: $valor');
         textController.clear();
         focusNode.requestFocus();
+        onValue(valor);
       },
     );
   }
 }
-

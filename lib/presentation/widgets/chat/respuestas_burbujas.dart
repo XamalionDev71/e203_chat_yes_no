@@ -1,7 +1,10 @@
+import 'package:e203_chat_yes_no/domain/entities/mensaje.dart';
 import 'package:flutter/material.dart';
 
 class RespuestasBurbujas extends StatelessWidget {
-  const RespuestasBurbujas({super.key});
+  final Mensaje mensaje;
+
+  const RespuestasBurbujas({super.key, required this.mensaje});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +20,11 @@ class RespuestasBurbujas extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(
-              'Hola Mundo de Flutter',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: Text(mensaje.text, style: TextStyle(color: Colors.white)),
           ),
         ),
         SizedBox(height: 10),
-        _ImagenBurbuja(),
+        _ImagenBurbuja(mensaje.imageUrl!),
         SizedBox(height: 10),
       ],
     );
@@ -32,6 +32,10 @@ class RespuestasBurbujas extends StatelessWidget {
 }
 
 class _ImagenBurbuja extends StatelessWidget {
+  final String imageUrl;
+
+  const _ImagenBurbuja(this.imageUrl);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -39,7 +43,7 @@ class _ImagenBurbuja extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadiusGeometry.circular(20),
       child: Image.network(
-        "https://yesno.wtf/assets/yes/4-c53643ecec77153eefb461e053fb4947.gif",
+        imageUrl,
         width: size.width * 0.5,
         height: 100,
         fit: BoxFit.cover,
@@ -47,7 +51,7 @@ class _ImagenBurbuja extends StatelessWidget {
           if (loadingProgress == null) return child;
 
           return Container(
-            width: size.width*0.7,
+            width: size.width * 0.7,
             height: 100,
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Text('Recibiendo imagen...'),

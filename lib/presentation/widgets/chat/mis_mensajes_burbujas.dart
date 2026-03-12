@@ -1,7 +1,10 @@
+import 'package:e203_chat_yes_no/domain/entities/mensaje.dart';
 import 'package:flutter/material.dart';
 
 class MisMensajesBurbujas extends StatelessWidget {
-  const MisMensajesBurbujas({super.key});
+  final Mensaje mensaje;
+
+  const MisMensajesBurbujas({super.key, required this.mensaje});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class MisMensajesBurbujas extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text('Flutter es mi pasión'),
+            child: Text(mensaje.text),
           ),
         ),
         SizedBox(height: 10),
@@ -25,4 +28,3 @@ class MisMensajesBurbujas extends StatelessWidget {
     );
   }
 }
-

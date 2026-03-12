@@ -1,7 +1,10 @@
+import 'package:e203_chat_yes_no/domain/entities/mensaje.dart';
+import 'package:e203_chat_yes_no/presentation/providers/chat_provider.dart';
 import 'package:e203_chat_yes_no/presentation/widgets/chat/mis_mensajes_burbujas.dart';
 import 'package:e203_chat_yes_no/presentation/widgets/chat/respuestas_burbujas.dart';
 import 'package:e203_chat_yes_no/presentation/widgets/shared/campo_mensaje.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -18,7 +21,7 @@ class ChatScreen extends StatelessWidget {
             ),
           ),
         ),
-        title: Center(child: Text('Hola')),
+        title: Center(child: Text('Mi Compadre Chambas!!')),
       ),
       body: _ChatView(),
     );
@@ -26,10 +29,10 @@ class ChatScreen extends StatelessWidget {
 }
 
 class _ChatView extends StatelessWidget {
-  const _ChatView({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final chatProvider = context.watch<ChatProvider>();
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -37,16 +40,18 @@ class _ChatView extends StatelessWidget {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: 100,
+                controller: chatProvider.chatScrollController,
+                itemCount: chatProvider.listaMensajes.length,
                 itemBuilder: (context, index) {
-                  return (index % 2 == 0)
-                      ? RespuestasBurbujas()
-                      : MisMensajesBurbujas();
+                  final mensaje = chatProvider.listaMensajes[index];
+                  return (mensaje.fromWho == FromWho.emisor)
+                      ? MisMensajesBurbujas(mensaje: mensaje)
+                      : RespuestasBurbujas(mensaje: mensaje);
                 },
               ),
             ),
             //Text('#TeamSistemas'),
-            CampoMensaje(),
+            CampoMensaje(onValue: chatProvider.enviarMensaje),
           ],
         ),
       ),
